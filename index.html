@@ -850,3 +850,663 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICOF LITE - Módulo de Registro y Seguimiento de Trámites</title>
+    <style>
+        :root {
+            --primary-color: #1b5e20;
+            --primary-light: #4c8c4a;
+            --primary-dark: #003300;
+            --secondary-color: #e8f5e9;
+            --accent-color: #b71c1c;
+            --text-color: #212121;
+            --text-light: #757575;
+            --text-white: #ffffff;
+            --background-light: #f5f5f5;
+            --border-color: #e0e0e0;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+            --info-color: #2196f3;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Contenedor principal del módulo */
+        .module-container {
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Encabezado del módulo */
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .module-title {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+
+        /* Pestañas de navegación */
+        .tabs-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-tab-item {
+            margin-right: 0.25rem;
+        }
+
+        .nav-tab-link {
+            display: block;
+            padding: 0.75rem 1.25rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab-link:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+            color: var(--primary-color);
+        }
+
+        .nav-tab-link.active {
+            background-color: var(--secondary-color);
+            color: var(--primary-dark);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Paneles de contenido */
+        .tab-content {
+            background-color: var(--text-white);
+            border-radius: 0 0 8px 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            min-height: 400px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Grid para formularios */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Grupos de formulario */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-label.required::after {
+            content: "*";
+            color: var(--accent-color);
+            margin-left: 0.25rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(27, 94, 32, 0.1);
+        }
+
+        /* Botones */
+        .btn {
+            padding: 0.6rem 1.25rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--text-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--primary-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: #d7ebd9;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Formulario de registro */
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-actions {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* Vista detalle */
+        .detail-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .detail-main {
+            background-color: var(--text-white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+        }
+
+        .detail-sidebar {
+            background-color: var(--text-white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .detail-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .detail-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .detail-info-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        /* Timeline para seguimiento */
+        .timeline {
+            position: relative;
+            margin: 0 0 0 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 0 0 2rem 1.5rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content {
+            font-size: 0.95rem;
+        }
+
+        .timeline-user {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        /* Estado de los trámites (semáforo) */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-warning {
+            background-color: #fff8e1;
+            color: #f57c00;
+        }
+
+        .status-danger {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .status-info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+
+        /* Tabs secundarias */
+        .secondary-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .secondary-tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .secondary-tab:hover {
+            color: var(--primary-color);
+        }
+
+        .secondary-tab.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .detail-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="module-container">
+        <div class="module-header">
+            <h1 class="module-title">Registro y Seguimiento de Trámites</h1>
+        </div>
+
+        <div class="tabs-container">
+            <ul class="nav-tabs">
+                <li class="nav-tab-item">
+                    <a href="#" class="nav-tab-link" data-tab="tab-search">Consulta</a>
+                </li>
+                <li class="nav-tab-item">
+                    <a href="#" class="nav-tab-link" data-tab="tab-register">Registro</a>
+                </li>
+                <li class="nav-tab-item">
+                    <a href="#" class="nav-tab-link active" data-tab="tab-tracking">Seguimiento</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <!-- Tab de Seguimiento de Trámites -->
+            <div class="tab-pane active" id="tab-tracking">
+                <div class="detail-container">
+                    <div class="detail-main">
+                        <div class="detail-header">
+                            <h2 class="detail-title">Trámite: RAD-2025-0042</h2>
+                            <p class="detail-subtitle">Inscripción - Farmacéutica Nacional S.A.</p>
+                        </div>
+                        
+                        <div class="detail-info-group">
+                            <div class="form-grid">
+                                <div>
+                                    <p class="detail-label">Fecha de Radicación</p>
+                                    <p class="detail-value">15/03/2025</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Tipo de Trámite</p>
+                                    <p class="detail-value">Inscripción</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Estado Actual</p>
+                                    <p class="detail-value"><span class="status-badge status-success">En Proceso</span></p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Días Transcurridos</p>
+                                    <p class="detail-value">5 días</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="secondary-tabs">
+                            <div class="secondary-tab active">Información General</div>
+                            <div class="secondary-tab">Documentos Adjuntos</div>
+                            <div class="secondary-tab">Trámites Relacionados</div>
+                        </div>
+
+                        <div class="detail-info-group">
+                            <h3 class="form-section-title">Información del Solicitante</h3>
+                            <div class="form-grid">
+                                <div>
+                                    <p class="detail-label">Tipo y Número de Identificación</p>
+                                    <p class="detail-value">NIT: 901.234.567-8</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Razón Social</p>
+                                    <p class="detail-value">Farmacéutica Nacional S.A.</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Tipo de Entidad</p>
+                                    <p class="detail-value">Establecimiento Farmacéutico</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Correo Electrónico</p>
+                                    <p class="detail-value">contacto@farmaceuticanacional.com</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Teléfono</p>
+                                    <p class="detail-value">601-2345678</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Dirección</p>
+                                    <p class="detail-value">Calle 123 # 45-67, Bogotá D.C.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-info-group">
+                            <h3 class="form-section-title">Información de Gestión</h3>
+                            <div class="form-grid">
+                                <div>
+                                    <p class="detail-label">Gestor Asignado</p>
+                                    <p class="detail-value">Juan Pérez</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Fecha de Asignación</p>
+                                    <p class="detail-value">15/03/2025</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Último Movimiento</p>
+                                    <p class="detail-value">17/03/2025 - Revisión técnica</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Fecha Estimada de Respuesta</p>
+                                    <p class="detail-value">14/04/2025</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-info-group">
+                            <h3 class="form-section-title">Actualizar Estado</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="nuevo-estado">Nuevo Estado</label>
+                                <select class="form-control" id="nuevo-estado">
+                                    <option value="">Seleccione nuevo estado...</option>
+                                    <option value="revision">Pendiente de Revisión</option>
+                                    <option value="requiere-info">Requiere Información Adicional</option>
+                                    <option value="finalizado">Finalizado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="observaciones-estado">Observaciones</label>
+                                <textarea class="form-control" id="observaciones-estado" rows="3" placeholder="Ingrese observaciones sobre el cambio de estado"></textarea>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end;">
+                                <button type="button" class="btn btn-primary">
+                                    <span>✓</span> Actualizar Estado
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-sidebar">
+                        <h3 class="form-section-title">Historial de Seguimiento</h3>
+                        
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">17/03/2025 - 10:45</div>
+                                <div class="timeline-title">Revisión técnica</div>
+                                <div class="timeline-content">
+                                    Se ha revisado la documentación técnica presentada. Es necesario verificar el cumplimiento de los requisitos establecidos en la Resolución 1478 de 2006.
+                                </div>
+                                <div class="timeline-user">Juan Pérez</div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">16/03/2025 - 14:30</div>
+                                <div class="timeline-title">Verificación de documentos</div>
+                                <div class="timeline-content">
+                                    Se verifica que la documentación presentada está completa según lista de chequeo para inscripción.
+                                </div>
+                                <div class="timeline-user">Juan Pérez</div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">15/03/2025 - 16:15</div>
+                                <div class="timeline-title">Asignación de trámite</div>
+                                <div class="timeline-content">
+                                    El trámite ha sido asignado para su gestión.
+                                </div>
+                                <div class="timeline-user">Carlos Rodríguez (Coordinador)</div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">15/03/2025 - 09:30</div>
+                                <div class="timeline-title">Radicación de trámite</div>
+                                <div class="timeline-content">
+                                    Se ha radicado solicitud de inscripción con documentación adjunta.
+                                </div>
+                                <div class="timeline-user">Sistema</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="nuevo-seguimiento">Agregar Seguimiento</label>
+                                <textarea class="form-control" id="nuevo-seguimiento" rows="3" placeholder="Ingrese observaciones de seguimiento"></textarea>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+                                <button type="button" class="btn btn-primary">
+                                    <span>➕</span> Agregar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad para cambio de tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabLinks = document.querySelectorAll('.nav-tab-link');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Desactivar todos los links
+                    tabLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Activar el link actual
+                    this.classList.add('active');
+                    
+                    // Obtener el tab a mostrar
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Ocultar todos los tabs
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+                    
+                    // Mostrar el tab correspondiente
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Funcionalidad para relaciones de trámites
+            const relacionSi = document.getElementById('relacion-si');
+            const relacionNo = document.getElementById('relacion-no');
+            const seccionRelaciones = document.getElementById('seccion-relaciones');
+            
+            if (relacionSi && relacionNo && seccionRelaciones) {
+                relacionSi.addEventListener('change', function() {
+                    if (this.checked) {
+                        seccionRelaciones.style.display = 'block';
+                    }
+                });
+                
+                relacionNo.addEventListener('change', function() {
+                    if (this.checked) {
+                        seccionRelaciones.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Funcionalidad para tabs secundarias
+            const secondaryTabs = document.querySelectorAll('.secondary-tab');
+            
+            secondaryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Desactivar todos los tabs secundarios
+                    secondaryTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Activar el tab seleccionado
+                    this.classList.add('active');
+                    
+                    // Aquí implementar cambio de contenido según tab seleccionado
+                    // (simplificado para el mockup)
+                });
+            });
+        });
+    </script>
+</body>
+</html>
