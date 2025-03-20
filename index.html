@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICOF LITE - Sistema de Información para Control y Fiscalización</title>
+    <style>
+        :root {
+            --primary-color: #1b5e20;
+            --primary-light: #4c8c4a;
+            --primary-dark: #003300;
+            --secondary-color: #e8f5e9;
+            --accent-color: #b71c1c;
+            --text-color: #212121;
+            --text-light: #757575;
+            --text-white: #ffffff;
+            --background-light: #f5f5f5;
+            --border-color: #e0e0e0;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+            --info-color: #2196f3;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Layout principal */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary-color);
+            color: var(--text-white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 0 1rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar.collapsed .menu-text,
+        .sidebar.collapsed .sidebar-header h1,
+        .sidebar.collapsed .submenu {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-toggle {
+            transform: rotate(180deg);
+        }
+
+        .user-info {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .user-info .user-name {
+            font-weight: bold;
+        }
+
+        .user-info .user-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* Menú de navegación */
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--text-white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--primary-light);
+        }
+
+        .nav-link i {
+            margin-right: 1rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .nav-link .menu-text {
+            flex: 1;
+        }
+
+        .submenu {
+            list-style: none;
+            margin-left: 2rem;
+            display: none;
+        }
+
+        .submenu.active {
+            display: block;
+        }
+
+        .submenu .nav-link {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Contenido principal */
+        .main-content {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        /* Header superior */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Tarjetas dashboard */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--text-white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .card-icon {
+            padding: 0.5rem;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            color: var(--primary-color);
+        }
+
+        .card-body {
+            flex: 1;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Secciones de gráficas */
+        .chart-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-container {
+            background-color: var(--text-white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chart-content {
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--background-light);
+            border-radius: 4px;
+        }
+
+        /* Tabla de trámites recientes */
+        .table-container {
+            background-color: var(--text-white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .table-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-weight: bold;
+            background-color: var(--secondary-color);
+            color: var(--primary-dark);
+        }
+
+        tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        /* Semáforo para estados */
+        .status-pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-warning {
+            background-color: #fff8e1;
+            color: #f57c00;
+        }
+
+        .status-danger {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .status-info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+
+        /* Botones y acciones */
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--text-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        /* Iconos para acciones de tabla */
+        .table-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-icon {
+            padding: 0.25rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-icon:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            padding-left: 2.25rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(27, 94, 32, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        /* Font Awesome (simulado con caracteres Unicode) */
+        .fas {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .chart-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                height: auto;
+            }
+            
+            .sidebar-header h1,
+            .user-info,
+            .menu-text {
+                display: none;
+            }
+            
+            .nav-menu {
+                display: flex;
+                justify-content: space-around;
+            }
+            
+            .submenu {
+                position: absolute;
+                bottom: 100%;
+                background-color: var(--primary-dark);
+                width: 180px;
+                margin-left: 0;
+            }
+            
+            .main-content {
+                margin-bottom: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar / Menú de navegación -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>SICOF LITE</h1>
+                <button class="sidebar-toggle" id="sidebarToggle">≡</button>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-name">Juan Pérez</div>
+                <div class="user-role">Gestor - Control y Fiscalización</div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-section="dashboard">
+                        <i class="fas">📊</i>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="tramites" data-toggle="submenu">
+                        <i class="fas">📝</i>
+                        <span class="menu-text">Trámites</span>
+                    </a>
+                    <ul class="submenu" id="submenu-tramites">
+                        <li>
+                            <a href="#" class="nav-link" data-section="tramites-registro">
+                                <span class="menu-text">Registro de Trámites</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="tramites-seguimiento">
+                                <span class="menu-text">Seguimiento</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="inscripciones" data-toggle="submenu">
+                        <i class="fas">📋</i>
+                        <span class="menu-text">Inscripciones</span>
+                    </a>
+                    <ul class="submenu" id="submenu-inscripciones">
+                        <li>
+                            <a href="#" class="nav-link" data-section="inscripciones-registro">
+                                <span class="menu-text">Registro</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="inscripciones-consulta">
+                                <span class="menu-text">Consulta y Edición</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="novedades" data-toggle="submenu">
+                        <i class="fas">🔔</i>
+                        <span class="menu-text">Novedades</span>
+                    </a>
+                    <ul class="submenu" id="submenu-novedades">
+                        <li>
+                            <a href="#" class="nav-link" data-section="novedades-registro">
+                                <span class="menu-text">Registro</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="novedades-consulta">
+                                <span class="menu-text">Consulta</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="reportes">
+                        <i class="fas">📈</i>
+                        <span class="menu-text">Reportes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="parametrizacion" data-toggle="submenu">
+                        <i class="fas">⚙️</i>
+                        <span class="menu-text">Configuración</span>
+                    </a>
+                    <ul class="submenu" id="submenu-parametrizacion">
+                        <li>
+                            <a href="#" class="nav-link" data-section="parametrizacion-catalogos">
+                                <span class="menu-text">Catálogos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="parametrizacion-workflow">
+                                <span class="menu-text">Workflow</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-section="parametrizacion-usuarios">
+                                <span class="menu-text">Usuarios</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        
+        <!-- Contenido principal -->
+        <main class="main-content" id="mainContent">
+            <!-- Dashboard -->
+            <section id="dashboard-section" class="content-section active">
+                <div class="top-header">
+                    <h2 class="page-title">Dashboard</h2>
+                    <div class="header-actions">
+                        <div class="search-container">
+                            <i class="fas search-icon">🔍</i>
+                            <input type="text" class="search-input" placeholder="Buscar...">
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas">⟳</i>
+                            Actualizar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Tarjetas resumen -->
+                <div class="card-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Trámites pendientes</h3>
+                            <div class="card-icon">📝</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-value">42</div>
+                            <div class="card-description">+8% desde la semana pasada</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Mis asignaciones</h3>
+                            <div class="card-icon">👤</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-value">18</div>
+                            <div class="card-description">5 en riesgo de vencimiento</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Inscripciones activas</h3>
+                            <div class="card-icon">📋</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-value">285</div>
+                            <div class="card-description">12 próximas a vencer</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Novedades del mes</h3>
+                            <div class="card-icon">🔔</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-value">67</div>
+                            <div class="card-description">+15% respecto al mes anterior</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gráficas -->
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Volumen de trámites por tipo</h3>
+                            <div class="chart-actions">
+                                <button class="btn btn-outline btn-icon">📅</button>
+                                <button class="btn btn-outline btn-icon">⬇️</button>
+                            </div>
+                        </div>
+                        <div class="chart-content">
+                            <!-- Aquí iría la gráfica de volumen de trámites -->
+                            <p>Gráfico de barras con volumen de trámites por tipo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Distribución de carga</h3>
+                            <div class="chart-actions">
+                                <button class="btn btn-outline btn-icon">⬇️</button>
+                            </div>
+                        </div>
+                        <div class="chart-content">
+                            <!-- Aquí iría la gráfica de distribución de carga -->
+                            <p>Gráfico circular con distribución de carga por gestor</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tabla de trámites recientes -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 class="table-title">Trámites recientes</h3>
+                        <button class="btn btn-outline">Ver todos</button>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No. Radicado</th>
+                                <th>Tipo de trámite</th>
+                                <th>Entidad solicitante</th>
+                                <th>Fecha radicado</th>
+                                <th>Gestor asignado</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>RAD-2025-0042</td>
+                                <td>Inscripción</td>
+                                <td>Farmacéutica Nacional S.A.</td>
+                                <td>15/03/2025</td>
+                                <td>Juan Pérez</td>
+                                <td><span class="status-pill status-success">En proceso</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <span class="action-icon">👁️</span>
+                                        <span class="action-icon">✏️</span>
+                                        <span class="action-icon">📄</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RAD-2025-0041</td>
+                                <td>Modificación</td>
+                                <td>Distribuidora Meditrópico</td>
+                                <td>14/03/2025</td>
+                                <td>Ana Silva</td>
+                                <td><span class="status-pill status-warning">Pendiente revisión</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <span class="action-icon">👁️</span>
+                                        <span class="action-icon">✏️</span>
+                                        <span class="action-icon">📄</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RAD-2025-0038</td>
+                                <td>Novedad</td>
+                                <td>Servicios Médicos del Valle</td>
+                                <td>10/03/2025</td>
+                                <td>Carlos Jiménez</td>
+                                <td><span class="status-pill status-danger">Próximo a vencer</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <span class="action-icon">👁️</span>
+                                        <span class="action-icon">✏️</span>
+                                        <span class="action-icon">📄</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RAD-2025-0036</td>
+                                <td>Inscripción</td>
+                                <td>Laboratorios Occidentales</td>
+                                <td>08/03/2025</td>
+                                <td>María López</td>
+                                <td><span class="status-pill status-info">Completado</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <span class="action-icon">👁️</span>
+                                        <span class="action-icon">📄</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RAD-2025-0035</td>
+                                <td>Cancelación</td>
+                                <td>Instituto Farmacológico</td>
+                                <td>07/03/2025</td>
+                                <td>Juan Pérez</td>
+                                <td><span class="status-pill status-info">Completado</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <span class="action-icon">👁️</span>
+                                        <span class="action-icon">📄</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Funcionalidad para toggle del sidebar
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
+        
+        // Funcionalidad para los submenús
+        const menuLinks = document.querySelectorAll('.nav-link[data-toggle="submenu"]');
+        
+        menuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const submenuId = 'submenu-' + link.dataset.section;
+                const submenu = document.getElementById(submenuId);
+                
+                // Cerrar todos los submenús
+                document.querySelectorAll('.submenu').forEach(menu => {
+                    if (menu.id !== submenuId) {
+                        menu.classList.remove('active');
+                    }
+                });
+                
+                // Toggle el submenú actual
+                submenu.classList.toggle('active');
+            });
+        });
+        
+        // Funcionalidad para navegación entre secciones
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Evitar acción predeterminada solo si no tiene data-toggle
+                if (!link.dataset.toggle) {
+                    e.preventDefault();
+                    
+                    // Desactivar todos los enlaces
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Activar el enlace actual
+                    link.classList.add('active');
+                    
+                    // Mostrar la sección correspondiente (esto se implementaría con más secciones)
+                    const sectionId = link.dataset.section + '-section';
+                    
+                    // Aquí se implementaría la lógica para mostrar la sección correspondiente
+                    console.log('Navegando a sección: ' + sectionId);
+                }
+            });
+        });
+        
+        // Simulación de datos para dashboard (en una aplicación real, estos vendrían del backend)
+        const dashboardData = {
+            tramitesPendientes: 42,
+            misAsignaciones: 18,
+            inscripcionesActivas: 285,
+            novedadesMes: 67
+        };
+        
+        // Aquí se añadirían más funcionalidades JavaScript según se requiera
+    </script>
+</body>
+</html>
