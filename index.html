@@ -1508,3 +1508,785 @@
     </script>
 </body>
 </html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICOF LITE - Módulo de Inscripciones</title>
+    <style>
+        :root {
+            --primary-color: #1b5e20;
+            --primary-light: #4c8c4a;
+            --primary-dark: #003300;
+            --secondary-color: #e8f5e9;
+            --accent-color: #b71c1c;
+            --text-color: #212121;
+            --text-light: #757575;
+            --text-white: #ffffff;
+            --background-light: #f5f5f5;
+            --border-color: #e0e0e0;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+            --info-color: #2196f3;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Contenedor principal */
+        .module-container {
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Encabezado del módulo */
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .module-title {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+
+        .module-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Pestañas de navegación */
+        .tabs-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-tab-item {
+            margin-right: 0.25rem;
+        }
+
+        .nav-tab-link {
+            display: block;
+            padding: 0.75rem 1.25rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab-link:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+            color: var(--primary-color);
+        }
+
+        .nav-tab-link.active {
+            background-color: var(--secondary-color);
+            color: var(--primary-dark);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Paneles de contenido */
+        .tab-content {
+            background-color: var(--text-white);
+            border-radius: 0 0 8px 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            min-height: 400px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Grid para formularios */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Grupos de formulario */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-label.required::after {
+            content: "*";
+            color: var(--accent-color);
+            margin-left: 0.25rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(27, 94, 32, 0.1);
+        }
+
+        .form-text {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+
+        /* Botones */
+        .btn {
+            padding: 0.6rem 1.25rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--text-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--primary-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: #d7ebd9;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: var(--text-white);
+        }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Formulario de registro */
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-actions {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        /* Stepper/wizard para formularios multi-paso */
+        .step-indicator {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 1rem 0.5rem;
+            position: relative;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -1px;
+            width: 100%;
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 0.5rem;
+            background-color: var(--background-light);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .step-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .step.active .step-number {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--text-white);
+        }
+
+        .step.active .step-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .step.completed .step-number {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+            color: var(--text-white);
+        }
+
+        /* Pasos del formulario */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        /* Sección de modalidades */
+        .modalities-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modality-list {
+            margin-top: 1rem;
+        }
+
+        .modality-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border-radius: 4px;
+            background-color: var(--background-light);
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .modality-title {
+            font-weight: 500;
+        }
+
+        .add-modality-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            background-color: transparent;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .add-modality-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Campo de adjuntos */
+        .attachments-container {
+            border: 1px dashed var(--border-color);
+            padding: 1.5rem;
+            border-radius: 4px;
+            background-color: var(--background-light);
+            margin-bottom: 1rem;
+        }
+
+        .attachment-dropzone {
+            text-align: center;
+            padding: 2rem;
+            cursor: pointer;
+        }
+
+        .attachment-list {
+            margin-top: 1rem;
+        }
+
+        .attachment-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border-radius: 4px;
+            background-color: var(--text-white);
+            margin-bottom: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .attachment-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .attachment-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .attachment-name {
+            font-weight: 500;
+        }
+
+        .attachment-size {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .attachment-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+        }
+
+        .modal-container {
+            background-color: var(--text-white);
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+
+            .step-indicator {
+                flex-direction: column;
+            }
+
+            .step {
+                margin-bottom: 1rem;
+            }
+
+            .step::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="module-container">
+        <div class="module-header">
+            <h1 class="module-title">Gestión de Inscripciones</h1>
+            <div class="module-actions">
+                <button class="btn btn-primary">
+                    <span>➕</span> Nueva Inscripción
+                </button>
+            </div>
+        </div>
+
+        <div class="tabs-container">
+            <ul class="nav-tabs">
+                <li class="nav-tab-item">
+                    <a href="#" class="nav-tab-link" data-tab="tab-search">Consulta</a>
+                </li>
+                <li class="nav-tab-item">
+                    <a href="#" class="nav-tab-link active" data-tab="tab-register">Registro</a>
+                </li>
+                <li class="nav-tab-item">
+                    <a href="#" class="nav-tab-link" data-tab="tab-edit">Edición</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <!-- Tab de Registro de Inscripciones -->
+            <div class="tab-pane active" id="tab-register">
+                <div class="step-indicator">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Datos Básicos</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Modalidades</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Representante Legal</div>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Director Técnico</div>
+                    </div>
+                    <div class="step" data-step="5">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Documentos</div>
+                    </div>
+                </div>
+
+                <form id="inscripcion-form">
+                    <!-- Paso 1: Datos Básicos -->
+                    <div class="form-step active" id="step-datos-basicos">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Información de la Resolución</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label required" for="num-resolucion">Número de Resolución</label>
+                                    <input type="text" class="form-control" id="num-resolucion" placeholder="Ingrese número de resolución" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="fecha-resolucion">Fecha de Resolución</label>
+                                    <input type="date" class="form-control" id="fecha-resolucion" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="fecha-notificacion">Fecha de Notificación</label>
+                                    <input type="date" class="form-control" id="fecha-notificacion" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="fecha-ejecutoria">Fecha de Ejecutoria</label>
+                                    <input type="date" class="form-control" id="fecha-ejecutoria" readonly>
+                                    <small class="form-text">Se calcula automáticamente: 10 días hábiles después de la notificación</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="fecha-vencimiento">Fecha de Vencimiento</label>
+                                    <input type="date" class="form-control" id="fecha-vencimiento" readonly>
+                                    <small class="form-text">Se calcula automáticamente: 5 años desde la ejecutoria</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="tipo-notificacion">Tipo de Notificación</label>
+                                    <select class="form-control" id="tipo-notificacion" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="electronica">Electrónica</option>
+                                        <option value="presencial">Presencial</option>
+                                        <option value="aviso">Por Aviso</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Información del Establecimiento</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label required" for="tipo-identificacion">Tipo de Identificación</label>
+                                    <select class="form-control" id="tipo-identificacion" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="nit">NIT</option>
+                                        <option value="cc">Cédula de Ciudadanía</option>
+                                        <option value="ce">Cédula de Extranjería</option>
+                                        <option value="pasaporte">Pasaporte</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="num-identificacion">Número de Identificación</label>
+                                    <input type="text" class="form-control" id="num-identificacion" placeholder="Ingrese número de identificación" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="digito-verificacion">Dígito de Verificación</label>
+                                    <input type="text" class="form-control" id="digito-verificacion" placeholder="Automático" readonly>
+                                    <small class="form-text">Se calculará automáticamente para NIT</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="razon-social">Razón Social</label>
+                                    <input type="text" class="form-control" id="razon-social" placeholder="Ingrese razón social" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="sigla">Sigla</label>
+                                    <input type="text" class="form-control" id="sigla" placeholder="Ingrese sigla (opcional)">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="naturaleza-juridica">Naturaleza Jurídica</label>
+                                    <select class="form-control" id="naturaleza-juridica" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="publica">Pública</option>
+                                        <option value="privada">Privada</option>
+                                        <option value="mixta">Mixta</option>
+                                        <option value="especial">Régimen Especial</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="tipo-entidad">Tipo de Entidad</label>
+                                    <select class="form-control" id="tipo-entidad" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="prestador">Prestador de Servicios de Salud</option>
+                                        <option value="establecimiento">Establecimiento Farmacéutico</option>
+                                        <option value="laboratorio">Laboratorio Farmacéutico</option>
+                                        <option value="distribuidor">Distribuidor</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline">Cancelar</button>
+                            <div>
+                                <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                                <button type="button" class="btn btn-primary" id="btn-siguiente-paso1">Siguiente</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paso 2: Modalidades -->
+                    <div class="form-step" id="step-modalidades">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Modalidades</h3>
+                            <p class="form-text" style="margin-bottom: 1rem;">Seleccione las modalidades que aplican para este establecimiento según su actividad.</p>
+                            
+                            <div class="modalities-section">
+                                <div class="modality-list">
+                                    <div class="modality-item">
+                                        <div class="modality-title">Fabricante</div>
+                                        <button type="button" class="btn btn-outline" style="padding: 0.25rem 0.5rem;">
+                                            <span>🗑️</span>
+                                        </button>
+                                    </div>
+                                    <div class="modality-item">
+                                        <div class="modality-title">Distribuidor</div>
+                                        <button type="button" class="btn btn-outline" style="padding: 0.25rem 0.5rem;">
+                                            <span>🗑️</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <button type="button" class="add-modality-btn" id="btn-agregar-modalidad">
+                                    <span>➕</span> Agregar Modalidad
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="btn-anterior-paso2">Anterior</button>
+                            <div>
+                                <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                                <button type="button" class="btn btn-primary" id="btn-siguiente-paso2">Siguiente</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paso 3: Representante Legal -->
+                    <div class="form-step" id="step-representante">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Información del Representante Legal</h3>
+                            
+                            <div class="form-group">
+                                <input type="checkbox" id="usuario-es-representante">
+                                <label for="usuario-es-representante">Soy el representante legal</label>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label required" for="tipo-representante">Tipo de Representante</label>
+                                    <select class="form-control" id="tipo-representante" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="principal">Principal</option>
+                                        <option value="suplente1">Suplente Primero</option>
+                                        <option value="suplente2">Suplente Segundo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="tipo-identificacion-rep">Tipo de Identificación</label>
+                                    <select class="form-control" id="tipo-identificacion-rep" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="cc">Cédula de Ciudadanía</option>
+                                        <option value="ce">Cédula de Extranjería</option>
+                                        <option value="pasaporte">Pasaporte</option>
+                                        <option value="pep">Permiso Especial de Permanencia</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="num-identificacion-rep">Número de Identificación</label>
+                                    <div style="display: flex; gap: 1rem;">
+                                        <input type="text" class="form-control" id="num-identificacion-rep" placeholder="Ingrese número de identificación" required>
+                                        <button type="button" class="btn btn-outline" id="btn-verificar-rep">
+                                            <span>🔍</span> Verificar
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="nombres-rep">Nombres</label>
+                                    <input type="text" class="form-control" id="nombres-rep" placeholder="Ingrese nombres" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="apellidos-rep">Apellidos</label>
+                                    <input type="text" class="form-control" id="apellidos-rep" placeholder="Ingrese apellidos" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="correo-rep">Correo Electrónico Institucional</label>
+                                    <input type="email" class="form-control" id="correo-rep" placeholder="Ingrese correo electrónico" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="telefono-rep">Teléfono</label>
+                                    <input type="tel" class="form-control" id="telefono-rep" placeholder="Ingrese número telefónico" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="btn-anterior-paso3">Anterior</button>
+                            <div>
+                                <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                                <button type="button" class="btn btn-primary" id="btn-siguiente-paso3">Siguiente</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paso 4: Director Técnico -->
+                    <div class="form-step" id="step-director-tecnico">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Información del Director Técnico</h3>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label required" for="tipo-identificacion-dt">Tipo de Identificación</label>
+                                    <select class="form-control" id="tipo-identificacion-dt" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="cc">Cédula de Ciudadanía</option>
+                                        <option value="ce">Cédula de Extranjería</option>
+                                        <option value="pasaporte">Pasaporte</option>
+                                        <option value="pep">Permiso Especial de Permanencia</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="num-identificacion-dt">Número de Identificación</label>
+                                    <div style="display: flex; gap: 1rem;">
+                                        <input type="text" class="form-control" id="num-identificacion-dt" placeholder="Ingrese número de identificación" required>
+                                        <button type="button" class="btn btn-outline" id="btn-verificar-dt">
+                                            <span>🔍</span> Verificar
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="nombres-dt
