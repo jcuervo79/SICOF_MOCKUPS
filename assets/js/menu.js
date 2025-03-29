@@ -1,5 +1,5 @@
 // Cargar el menú desde un archivo externo
-fetch('components/menu.html')
+fetch('../components/menu.html')
 .then(res => res.text())
 .then(html => {
     document.getElementById('sidebar-container').innerHTML = html;
