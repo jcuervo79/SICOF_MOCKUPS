@@ -1,0 +1,191 @@
+<section id="tramites-section">
+    <h2>Trámites</h2>
+    <div class="module-container">
+        <div class="module-header">
+            <h1 class="module-title">Registro y Seguimiento de Trámites</h1>
+        </div>
+
+        <div class="tabs-container">
+            <ul class="nav-tabs">
+                <li class="nav-tab-item">
+                    <a href="#" class="nav-tab-link" data-tab="tab-search">Consulta</a>
+                </li>
+                <li class="nav-tab-item">
+                    <a href="#" class="nav-tab-link" data-tab="tab-register">Registro</a>
+                </li>
+                <li class="nav-tab-item">
+                    <a href="#" class="nav-tab-link active" data-tab="tab-tracking">Seguimiento</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <!-- Tab de Seguimiento de Trámites -->
+            <div class="tab-pane active" id="tab-tracking">
+                <div class="detail-container">
+                    <div class="detail-main">
+                        <div class="detail-header">
+                            <h2 class="detail-title">Trámite: RAD-2025-0042</h2>
+                            <p class="detail-subtitle">Inscripción - Farmacéutica Nacional S.A.</p>
+                        </div>
+                        
+                        <div class="detail-info-group">
+                            <div class="form-grid">
+                                <div>
+                                    <p class="detail-label">Fecha de Radicación</p>
+                                    <p class="detail-value">15/03/2025</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Tipo de Trámite</p>
+                                    <p class="detail-value">Inscripción</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Estado Actual</p>
+                                    <p class="detail-value"><span class="status-badge status-success">En Proceso</span></p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Días Transcurridos</p>
+                                    <p class="detail-value">5 días</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="secondary-tabs">
+                            <div class="secondary-tab active">Información General</div>
+                            <div class="secondary-tab">Documentos Adjuntos</div>
+                            <div class="secondary-tab">Trámites Relacionados</div>
+                        </div>
+
+                        <div class="detail-info-group">
+                            <h3 class="form-section-title">Información del Solicitante</h3>
+                            <div class="form-grid">
+                                <div>
+                                    <p class="detail-label">Tipo y Número de Identificación</p>
+                                    <p class="detail-value">NIT: 901.234.567-8</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Razón Social</p>
+                                    <p class="detail-value">Farmacéutica Nacional S.A.</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Tipo de Entidad</p>
+                                    <p class="detail-value">Establecimiento Farmacéutico</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Correo Electrónico</p>
+                                    <p class="detail-value">contacto@farmaceuticanacional.com</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Teléfono</p>
+                                    <p class="detail-value">601-2345678</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Dirección</p>
+                                    <p class="detail-value">Calle 123 # 45-67, Bogotá D.C.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-info-group">
+                            <h3 class="form-section-title">Información de Gestión</h3>
+                            <div class="form-grid">
+                                <div>
+                                    <p class="detail-label">Gestor Asignado</p>
+                                    <p class="detail-value">Juan Pérez</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Fecha de Asignación</p>
+                                    <p class="detail-value">15/03/2025</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Último Movimiento</p>
+                                    <p class="detail-value">17/03/2025 - Revisión técnica</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">Fecha Estimada de Respuesta</p>
+                                    <p class="detail-value">14/04/2025</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-info-group">
+                            <h3 class="form-section-title">Actualizar Estado</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="nuevo-estado">Nuevo Estado</label>
+                                <select class="form-control" id="nuevo-estado">
+                                    <option value="">Seleccione nuevo estado...</option>
+                                    <option value="revision">Pendiente de Revisión</option>
+                                    <option value="requiere-info">Requiere Información Adicional</option>
+                                    <option value="finalizado">Finalizado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="observaciones-estado">Observaciones</label>
+                                <textarea class="form-control" id="observaciones-estado" rows="3" placeholder="Ingrese observaciones sobre el cambio de estado"></textarea>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end;">
+                                <button type="button" class="btn btn-primary">
+                                    <span>✓</span> Actualizar Estado
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-sidebar">
+                        <h3 class="form-section-title">Historial de Seguimiento</h3>
+                        
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">17/03/2025 - 10:45</div>
+                                <div class="timeline-title">Revisión técnica</div>
+                                <div class="timeline-content">
+                                    Se ha revisado la documentación técnica presentada. Es necesario verificar el cumplimiento de los requisitos establecidos en la Resolución 1478 de 2006.
+                                </div>
+                                <div class="timeline-user">Juan Pérez</div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">16/03/2025 - 14:30</div>
+                                <div class="timeline-title">Verificación de documentos</div>
+                                <div class="timeline-content">
+                                    Se verifica que la documentación presentada está completa según lista de chequeo para inscripción.
+                                </div>
+                                <div class="timeline-user">Juan Pérez</div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">15/03/2025 - 16:15</div>
+                                <div class="timeline-title">Asignación de trámite</div>
+                                <div class="timeline-content">
+                                    El trámite ha sido asignado para su gestión.
+                                </div>
+                                <div class="timeline-user">Carlos Rodríguez (Coordinador)</div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">15/03/2025 - 09:30</div>
+                                <div class="timeline-title">Radicación de trámite</div>
+                                <div class="timeline-content">
+                                    Se ha radicado solicitud de inscripción con documentación adjunta.
+                                </div>
+                                <div class="timeline-user">Sistema</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="nuevo-seguimiento">Agregar Seguimiento</label>
+                                <textarea class="form-control" id="nuevo-seguimiento" rows="3" placeholder="Ingrese observaciones de seguimiento"></textarea>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+                                <button type="button" class="btn btn-primary">
+                                    <span>➕</span> Agregar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
