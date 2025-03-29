@@ -19,9 +19,6 @@
                 <div class="tabs-container">
                     <ul class="nav-tabs">
                         <li class="nav-tab-item">
-                            <a href="#" class="nav-tab-link" data-tab="tab-search">Consulta</a>
-                        </li>
-                        <li class="nav-tab-item">
                             <a href="#" class="nav-tab-link" data-tab="tab-register">Registro</a>
                         </li>
                         <li class="nav-tab-item">
@@ -30,81 +27,7 @@
                     </ul>
                 </div>
         
-                <div class="tab-content">
-                    <!-- Tab de Consulta -->
-                    <div class="tab-pane" id="tab-search">
-                        <div class="form-filter">
-                            <h3>Filtros de Búsqueda</h3>
-                            <div class="form-grid">
-                                <div>
-                                    <label for="filtro-numero">No. de Radicado</label>
-                                    <input type="text" id="filtro-numero" class="form-control" placeholder="RAD-2025-XXXX">
-                                </div>
-                                <div>
-                                    <label for="filtro-tipo">Tipo de Trámite</label>
-                                    <select id="filtro-tipo" class="form-control">
-                                        <option value="">Todos</option>
-                                        <option value="inscripcion">Inscripción</option>
-                                        <option value="modificacion">Modificación</option>
-                                        <option value="cancelacion">Cancelación</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="filtro-fecha">Fecha de Radicación</label>
-                                    <input type="date" id="filtro-fecha" class="form-control">
-                                </div>
-                                <div>
-                                    <label for="filtro-gestor">Gestor Asignado</label>
-                                    <input type="text" id="filtro-gestor" class="form-control" placeholder="Nombre del Gestor">
-                                </div>
-                                <div style="display: flex; align-items: flex-end;">
-                                    <button class="btn btn-primary" id="btn-buscar">🔍 Buscar</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-container">
-                            <h3>Resultados</h3>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>No. Radicado</th>
-                                        <th>Tipo</th>
-                                        <th>Entidad</th>
-                                        <th>Fecha</th>
-                                        <th>Gestor</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>RAD-2025-0042</td>
-                                        <td>Inscripción</td>
-                                        <td>Farmacéutica Nacional S.A.</td>
-                                        <td>15/03/2025</td>
-                                        <td>Juan Pérez</td>
-                                        <td><span class="status-pill status-success">En Proceso</span></td>
-                                        <td>
-                                            <button class="btn btn-sm">👁️ Ver</button>
-                                            <button class="btn btn-sm">✏️ Editar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>RAD-2025-0038</td>
-                                        <td>Novedad</td>
-                                        <td>Servicios Médicos del Valle</td>
-                                        <td>10/03/2025</td>
-                                        <td>Carlos Jiménez</td>
-                                        <td><span class="status-pill status-danger">Próximo a vencer</span></td>
-                                        <td>
-                                            <button class="btn btn-sm">👁️ Ver</button>
-                                            <button class="btn btn-sm">✏️ Editar</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="tab-content">                    
                     <!-- Tab de Registro -->
                     <div class="tab-pane" id="tab-register">
                         <form class="form-register">
