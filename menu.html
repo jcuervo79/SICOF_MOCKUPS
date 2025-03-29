@@ -10,31 +10,20 @@
     </div>
     
     <ul class="nav-menu">
+        <!-- Dashboard -->
         <li class="nav-item">
-            <a href="#" class="nav-link active" data-section="dashboard">
-                <i class="fas">📊</i>
-                <span class="menu-text">Dashboard</span>
-            </a>
+            <a href="modules/dashboard.html" class="nav-link">📊 Dashboard</a>
         </li>
-        <!-- Fragmento ajustado de menu.html -->
         <li class="nav-item">
-            <a href="#" class="nav-link" data-toggle="submenu">
-                <i class="fas">📝</i>
-                <span class="menu-text">Trámites</span>
-            </a>
-            <ul class="submenu" id="submenu-tramites">
-                <li>
-                    <a href="modules/tramites.html" class="nav-link submenu-link">
-                        <span class="menu-text">Registro de Trámites</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link submenu-link">
-                        <span class="menu-text">Seguimiento</span>
-                    </a>
-                </li>
+            <a href="#" class="nav-link" data-toggle="submenu">📝 Trámites</a>
+            <ul class="submenu">
+                <li><a href="modules/tramites.html" data-tab="consulta" class="nav-link">Consulta</a></li>
+                <li><a href="modules/tramites.html" data-tab="registro" class="nav-link">Registro</a></li>
+                <li><a href="modules/tramites.html" data-tab="seguimiento" class="nav-link">Seguimiento</a></li>
             </ul>
         </li>
+        
+        <!-- Inscripciones -->
         <li class="nav-item">
             <a href="#" class="nav-link" data-section="inscripciones" data-toggle="submenu">
                 <i class="fas">📋</i>
