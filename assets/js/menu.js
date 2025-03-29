@@ -4,13 +4,14 @@ fetch('../components/menu.html')
 .then(html => {
     document.getElementById('sidebar-container').innerHTML = html;
 
-    // Luego de insertar el HTML, activar comportamiento del menú
+    // Activar comportamiento del menú
     const sidebarToggle = document.getElementById('sidebarToggle');
     const sidebar = document.getElementById('sidebar');
     sidebarToggle?.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
     });
 
+    // Submenús
     const menuLinks = document.querySelectorAll('.nav-link[data-toggle="submenu"]');
     menuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -24,17 +25,25 @@ fetch('../components/menu.html')
         });
     });
 
+    // ✅ AQUÍ VA el código para navegación normal (actualizado)
     const navLinks = document.querySelectorAll('.nav-link');
-    const contentSections = document.querySelectorAll('.content-section');
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            if (!link.dataset.toggle) {
-                e.preventDefault();
-                navLinks.forEach(navLink => navLink.classList.remove('active'));
-                link.classList.add('active');
-                const sectionId = link.dataset.section + '-section';
-                console.log('Navegando a sección: ' + sectionId);
+            const isSubmenu = link.dataset.toggle === 'submenu';
+
+            if (!isSubmenu) {
+                // navegación real, no hacer preventDefault
+                return;
             }
+
+            // solo bloquear si es submenu
+            e.preventDefault();
+            const submenuId = 'submenu-' + link.dataset.section;
+            const submenu = document.getElementById(submenuId);
+            document.querySelectorAll('.submenu').forEach(menu => {
+                if (menu !== submenu) menu.classList.remove('active');
+            });
+            submenu.classList.toggle('active');
         });
     });
 });
