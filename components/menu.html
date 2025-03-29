@@ -1,3 +1,4 @@
+﻿<!-- Sidebar / Menú de navegación -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <h1>SICOF LITE</h1>
@@ -10,55 +11,29 @@
     </div>
     
     <ul class="nav-menu">
-        <!-- Dashboard -->
         <li class="nav-item">
-            <a href="modules/dashboard.html" class="nav-link">📊 Dashboard</a>
+            <a href="#" class="nav-link active" data-section="dashboard">
+                <i class="fas">📊</i>
+                <span class="menu-text">Dashboard</span>
+            </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link" data-toggle="submenu">📝 Trámites</a>
-            <ul class="submenu">
-                <li><a href="modules/tramites.html" data-tab="consulta" class="nav-link">Consulta</a></li>
-                <li><a href="modules/tramites.html" data-tab="registro" class="nav-link">Registro</a></li>
-                <li><a href="modules/tramites.html" data-tab="seguimiento" class="nav-link">Seguimiento</a></li>
-            </ul>
+            <a href="#" class="nav-link" data-section="tramites" data-toggle="submenu">
+                <i class="fas">📝</i>
+                <span class="menu-text">Trámites</span>
+            </a>
         </li>
-        
-        <!-- Inscripciones -->
         <li class="nav-item">
             <a href="#" class="nav-link" data-section="inscripciones" data-toggle="submenu">
                 <i class="fas">📋</i>
                 <span class="menu-text">Inscripciones</span>
             </a>
-            <ul class="submenu" id="submenu-inscripciones">
-                <li>
-                    <a href="#" class="nav-link" data-section="inscripciones-registro">
-                        <span class="menu-text">Registro</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link" data-section="inscripciones-consulta">
-                        <span class="menu-text">Consulta y Edición</span>
-                    </a>
-                </li>
-            </ul>
         </li>
         <li class="nav-item">
             <a href="#" class="nav-link" data-section="novedades" data-toggle="submenu">
                 <i class="fas">🔔</i>
                 <span class="menu-text">Novedades</span>
             </a>
-            <ul class="submenu" id="submenu-novedades">
-                <li>
-                    <a href="#" class="nav-link" data-section="novedades-registro">
-                        <span class="menu-text">Registro</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link" data-section="novedades-consulta">
-                        <span class="menu-text">Consulta</span>
-                    </a>
-                </li>
-            </ul>
         </li>
         <li class="nav-item">
             <a href="#" class="nav-link" data-section="reportes">

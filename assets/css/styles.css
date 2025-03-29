@@ -38,17 +38,13 @@ body {
 /* Sidebar */
 .sidebar {
     width: 260px;
-    height: 100vh; /* Esto hace que ocupe toda la altura de la pantalla */
     background-color: var(--primary-color);
     color: var(--text-white);
     padding: 1rem 0;
     box-shadow: var(--shadow);
     z-index: 100;
     transition: all 0.3s ease;
-    position: fixed; /* Hace que quede fijo al desplazarse */
-    top: 0; /* Lo ancla desde arriba */
-    left: 0; /* Lo ancla a la izquierda */
-    overflow-y: auto; /* Permite desplazamiento vertical si el contenido es muy largo */
+    height: 100vh;
 }
 
 .sidebar-header {
@@ -153,7 +149,6 @@ body {
     flex: 1;
     padding: 1rem;
     overflow-y: auto;
-    margin-left: 260px; /* Igual al ancho del sidebar */
 }
 
 /* Header superior */
@@ -365,15 +360,6 @@ tr:hover {
     background-color: var(--primary-dark);
 }
 
-.btn-secondary {
-    background-color: var(--secondary-color);
-    color: var(--primary-dark);
-}
-
-.btn-secondary:hover {
-    background-color: #d7ebd9;
-}
-
 .btn-outline {
     background-color: transparent;
     border: 1px solid var(--border-color);
@@ -382,15 +368,6 @@ tr:hover {
 
 .btn-outline:hover {
     background-color: rgba(0, 0, 0, 0.05);
-}
-
-.btn-danger {
-    background-color: var(--danger-color);
-    color: var(--text-white);
-}
-
-.btn-danger:hover {
-    background-color: #d32f2f;
 }
 
 .btn-icon {
@@ -467,7 +444,7 @@ tr:hover {
         width: 100%;
         position: fixed;
         bottom: 0;
-        height: 100%;
+        height: auto;
     }
     
     .sidebar-header h1,
