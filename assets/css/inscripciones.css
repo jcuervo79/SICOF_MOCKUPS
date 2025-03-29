@@ -29,6 +29,24 @@ body {
     line-height: 1.6;
 }
 
+.layout {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  #sidebar-container {
+    width: 260px;
+    height: 100vh;
+    flex-shrink: 0;
+  }
+  
+  .main-content {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+
 /* Contenedor principal */
 .module-container {
     padding: 1.5rem;
