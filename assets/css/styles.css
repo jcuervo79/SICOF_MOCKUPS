@@ -470,3 +470,17 @@ tr:hover {
         margin-bottom: 60px;
     }
 }
+
+#sidebar-container {
+    width: 260px;
+    flex-shrink: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+#dashboard-container {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: var(--background-light);
+}
