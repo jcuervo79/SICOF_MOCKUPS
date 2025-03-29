@@ -1,0 +1,91 @@
+<section id="inscripciones-section">
+    <h2>Inscripciones</h2>
+    <div class="tabs-container">
+        <!-- Paso 4: Director Técnico (completado)-->
+        <div class="form-step" id="step-director-tecnico">
+            <div class="form-section">
+                <h3 class="form-section-title">Información del Director Técnico</h3>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label required" for="tipo-identificacion-dt">Tipo de Identificación</label>
+                        <select class="form-control" id="tipo-identificacion-dt" required>
+                            <option value="">Seleccione...</option>
+                            <option value="cc">Cédula de Ciudadanía</option>
+                            <option value="ce">Cédula de Extranjería</option>
+                            <option value="pasaporte">Pasaporte</option>
+                            <option value="pep">Permiso Especial de Permanencia</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required" for="num-identificacion-dt">Número de Identificación</label>
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="text" class="form-control" id="num-identificacion-dt" placeholder="Ingrese número de identificación" required>
+                            <button type="button" class="btn btn-outline" id="btn-verificar-dt">
+                                <span>🔍</span> Verificar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required" for="nombres-dt">Nombres</label>
+                        <input type="text" class="form-control" id="nombres-dt" placeholder="Ingrese nombres" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required" for="apellidos-dt">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidos-dt" placeholder="Ingrese apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required" for="correo-dt">Correo Electrónico Institucional</label>
+                        <input type="email" class="form-control" id="correo-dt" placeholder="Ingrese correo electrónico" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required" for="telefono-dt">Teléfono</label>
+                        <input type="tel" class="form-control" id="telefono-dt" placeholder="Ingrese número telefónico" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required" for="profesion-dt">Profesión</label>
+                        <input type="text" class="form-control" id="profesion-dt" placeholder="Ingrese profesión" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required" for="tarjeta-profesional-dt">Tarjeta Profesional</label>
+                        <input type="text" class="form-control" id="tarjeta-profesional-dt" placeholder="Ingrese número de tarjeta profesional" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-outline" id="btn-anterior-paso4">Anterior</button>
+                <div>
+                    <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                    <button type="button" class="btn btn-primary" id="btn-siguiente-paso4">Siguiente</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 5: Documentos Adjuntos -->
+        <div class="form-step" id="step-documentos">
+            <div class="form-section">
+                <h3 class="form-section-title">Documentos Adjuntos</h3>
+
+                <div class="attachments-container">
+                    <div class="attachment-dropzone">
+                        <p>Arrastra y suelta documentos aquí o haz clic para subir archivos.</p>
+                    </div>
+
+                    <div class="attachment-list" id="attachment-list">
+                        <!-- Documentos adjuntos aparecerán aquí -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-outline" id="btn-anterior-paso5">Anterior</button>
+                <div>
+                    <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                    <button type="submit" class="btn btn-primary">Enviar Inscripción</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
