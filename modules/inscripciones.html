@@ -408,6 +408,39 @@
                             </div>
                         </form>
                     </div>
+
+                    <div class="tab-pane" id="tab-edit">
+                        <form id="form-edicion-inscripcion">
+                            <div class="form-section">
+                                <h3 class="form-section-title">Edición de Inscripción</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label required" for="edit-num-resolucion">Número de Resolución</label>
+                                        <input type="text" class="form-control" id="edit-num-resolucion" value="RES-2025-0456">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="edit-razon-social">Razón Social</label>
+                                        <input type="text" class="form-control" id="edit-razon-social" value="Farmacéutica Nacional S.A.">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="edit-tipo-entidad">Tipo de Entidad</label>
+                                        <select class="form-control" id="edit-tipo-entidad">
+                                            <option value="establecimiento" selected>Establecimiento</option>
+                                            <option value="laboratorio">Laboratorio</option>
+                                            <option value="distribuidor">Distribuidor</option>
+                                        </select>
+                                    </div>
+                                    <!-- Más campos según necesidad -->
+                                </div>
+                            </div>
+                    
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                    
                 </div>
             </div>
         </div>
