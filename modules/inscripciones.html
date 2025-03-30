@@ -36,6 +36,66 @@
                 </div>
         
                 <div class="tab-content">
+                    <div class="tab-pane" id="tab-search">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Filtros de Búsqueda</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="filtro-nit">NIT o Número de Identificación</label>
+                                    <input type="text" id="filtro-nit" class="form-control" placeholder="Ej: 900123456-7">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="filtro-razon">Razón Social</label>
+                                    <input type="text" id="filtro-razon" class="form-control" placeholder="Ej: Farmacéutica Nacional S.A.">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="filtro-tipo">Tipo de Entidad</label>
+                                    <select id="filtro-tipo" class="form-control">
+                                        <option value="">Todas</option>
+                                        <option value="prestador">Prestador de Servicios</option>
+                                        <option value="establecimiento">Establecimiento</option>
+                                        <option value="laboratorio">Laboratorio</option>
+                                        <option value="distribuidor">Distribuidor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem; text-align: right;">
+                                <button class="btn btn-primary" id="btn-buscar-inscripciones">🔍 Buscar</button>
+                            </div>
+                        </div>
+                    
+                        <div class="form-section">
+                            <h3 class="form-section-title">Resultados</h3>
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr>
+                                            <th>Resolución</th>
+                                            <th>Fecha</th>
+                                            <th>Entidad</th>
+                                            <th>Tipo</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RES-2025-0456</td>
+                                            <td>10/04/2025</td>
+                                            <td>Farmacéutica Nacional S.A.</td>
+                                            <td>Establecimiento</td>
+                                            <td><span class="status-badge status-success">Activa</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline">👁️ Ver</button>
+                                                <button class="btn btn-sm btn-primary">✏️ Editar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Tab de Registro de Inscripciones -->
                     <div class="tab-pane active" id="tab-register">
                         <div class="step-indicator">
