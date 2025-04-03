@@ -1,0 +1,119 @@
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    padding: 1rem 0;
+    box-shadow: var(--shadow);
+    z-index: 100;
+    transition: all 0.3s ease;
+    height: 100vh;
+}
+
+.sidebar-header {
+    padding: 0 1rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-header h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: var(--text-white);
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar.collapsed .menu-text,
+.sidebar.collapsed .sidebar-header h1,
+.sidebar.collapsed .submenu {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-toggle {
+    transform: rotate(180deg);
+}
+
+.user-info {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+}
+
+.user-info .user-name {
+    font-weight: bold;
+}
+
+.user-info .user-role {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* Menú de navegación */
+.nav-menu {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 0.25rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: var(--text-white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    background-color: var(--primary-light);
+}
+
+.nav-link i {
+    margin-right: 1rem;
+    min-width: 20px;
+    text-align: center;
+}
+
+.nav-link .menu-text {
+    flex: 1;
+}
+
+.submenu {
+    list-style: none;
+    margin-left: 2rem;
+    display: none;
+}
+
+.submenu.active {
+    display: block;
+}
+
+.submenu .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Contenedor del menú inyectado dinámicamente */
+#sidebar-container {
+    width: 260px;
+    flex-shrink: 0;
+    height: 100vh;
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    overflow-y: auto;
+}

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICOF LITE - Módulo de Inscripciones</title>
+    <link rel="stylesheet" href="../assets/css/menu.css">
+    <link rel="stylesheet" href="../assets/css/inscripciones.css"> 
+</head>
+<body>
+    <div class="layout">
+        <div id="sidebar-container"></div> 
+        <div class="main-content">
+            <div class="module-container">
+                <div class="module-header">
+                    <h1 class="module-title">Gestión de Inscripciones</h1>
+                    <div class="module-actions">
+                        <button class="btn btn-primary">
+                            <span>➕</span> Nueva Inscripción
+                        </button>
+                    </div>
+                </div>
+        
+                <div class="tabs-container">
+                    <ul class="nav-tabs">
+                        <li class="nav-tab-item">
+                            <a href="#" class="nav-tab-link" data-tab="tab-search">Consulta</a>
+                        </li>
+                        <li class="nav-tab-item">
+                            <a href="#" class="nav-tab-link active" data-tab="tab-register">Registro</a>
+                        </li>
+                        <li class="nav-tab-item">
+                            <a href="#" class="nav-tab-link" data-tab="tab-edit">Edición</a>
+                        </li>
+                    </ul>
+                </div>
+        
+                <div class="tab-content">
+                    <div class="tab-pane" id="tab-search">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Filtros de Búsqueda</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="filtro-nit">NIT o Número de Identificación</label>
+                                    <input type="text" id="filtro-nit" class="form-control" placeholder="Ej: 900123456-7">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="filtro-razon">Razón Social</label>
+                                    <input type="text" id="filtro-razon" class="form-control" placeholder="Ej: Farmacéutica Nacional S.A.">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="filtro-tipo">Tipo de Entidad</label>
+                                    <select id="filtro-tipo" class="form-control">
+                                        <option value="">Todas</option>
+                                        <option value="prestador">Prestador de Servicios</option>
+                                        <option value="establecimiento">Establecimiento</option>
+                                        <option value="laboratorio">Laboratorio</option>
+                                        <option value="distribuidor">Distribuidor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem; text-align: right;">
+                                <button class="btn btn-primary" id="btn-buscar-inscripciones">🔍 Buscar</button>
+                            </div>
+                        </div>
+                    
+                        <div class="form-section">
+                            <h3 class="form-section-title">Resultados</h3>
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr>
+                                            <th>Resolución</th>
+                                            <th>Fecha</th>
+                                            <th>Entidad</th>
+                                            <th>Tipo</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RES-2025-0456</td>
+                                            <td>10/04/2025</td>
+                                            <td>Farmacéutica Nacional S.A.</td>
+                                            <td>Establecimiento</td>
+                                            <td><span class="status-badge status-success">Activa</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline">👁️ Ver</button>
+                                                <button class="btn btn-sm btn-primary">✏️ Editar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab de Registro de Inscripciones -->
+                    <div class="tab-pane active" id="tab-register">
+                        <div class="step-indicator">
+                            <div class="step active" data-step="1">
+                                <div class="step-number">1</div>
+                                <div class="step-title">Datos Básicos</div>
+                            </div>
+                            <div class="step" data-step="2">
+                                <div class="step-number">2</div>
+                                <div class="step-title">Modalidades</div>
+                            </div>
+                            <div class="step" data-step="3">
+                                <div class="step-number">3</div>
+                                <div class="step-title">Representante Legal</div>
+                            </div>
+                            <div class="step" data-step="4">
+                                <div class="step-number">4</div>
+                                <div class="step-title">Director Técnico</div>
+                            </div>
+                            <div class="step" data-step="5">
+                                <div class="step-number">5</div>
+                                <div class="step-title">Documentos</div>
+                            </div>
+                        </div>
+        
+                        <form id="inscripcion-form">
+                            <!-- Paso 1: Datos Básicos -->
+                            <div class="form-step active" id="step-datos-basicos">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Información de la Resolución</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label required" for="num-resolucion">Número de Resolución</label>
+                                            <input type="text" class="form-control" id="num-resolucion" placeholder="Ingrese número de resolución" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="fecha-resolucion">Fecha de Resolución</label>
+                                            <input type="date" class="form-control" id="fecha-resolucion" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="fecha-notificacion">Fecha de Notificación</label>
+                                            <input type="date" class="form-control" id="fecha-notificacion" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="fecha-ejecutoria">Fecha de Ejecutoria</label>
+                                            <input type="date" class="form-control" id="fecha-ejecutoria" readonly>
+                                            <small class="form-text">Se calcula automáticamente: 10 días hábiles después de la notificación</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="fecha-vencimiento">Fecha de Vencimiento</label>
+                                            <input type="date" class="form-control" id="fecha-vencimiento" readonly>
+                                            <small class="form-text">Se calcula automáticamente: 5 años desde la ejecutoria</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="tipo-notificacion">Tipo de Notificación</label>
+                                            <select class="form-control" id="tipo-notificacion" required>
+                                                <option value="">Seleccione...</option>
+                                                <option value="electronica">Electrónica</option>
+                                                <option value="presencial">Presencial</option>
+                                                <option value="aviso">Por Aviso</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Información del Establecimiento</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label required" for="tipo-identificacion">Tipo de Identificación</label>
+                                            <select class="form-control" id="tipo-identificacion" required>
+                                                <option value="">Seleccione...</option>
+                                                <option value="nit">NIT</option>
+                                                <option value="cc">Cédula de Ciudadanía</option>
+                                                <option value="ce">Cédula de Extranjería</option>
+                                                <option value="pasaporte">Pasaporte</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="num-identificacion">Número de Identificación</label>
+                                            <input type="text" class="form-control" id="num-identificacion" placeholder="Ingrese número de identificación" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="digito-verificacion">Dígito de Verificación</label>
+                                            <input type="text" class="form-control" id="digito-verificacion" placeholder="Automático" readonly>
+                                            <small class="form-text">Se calculará automáticamente para NIT</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="razon-social">Razón Social</label>
+                                            <input type="text" class="form-control" id="razon-social" placeholder="Ingrese razón social" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="sigla">Sigla</label>
+                                            <input type="text" class="form-control" id="sigla" placeholder="Ingrese sigla (opcional)">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="naturaleza-juridica">Naturaleza Jurídica</label>
+                                            <select class="form-control" id="naturaleza-juridica" required>
+                                                <option value="">Seleccione...</option>
+                                                <option value="publica">Pública</option>
+                                                <option value="privada">Privada</option>
+                                                <option value="mixta">Mixta</option>
+                                                <option value="especial">Régimen Especial</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="tipo-entidad">Tipo de Entidad</label>
+                                            <select class="form-control" id="tipo-entidad" required>
+                                                <option value="">Seleccione...</option>
+                                                <option value="prestador">Prestador de Servicios de Salud</option>
+                                                <option value="establecimiento">Establecimiento Farmacéutico</option>
+                                                <option value="laboratorio">Laboratorio Farmacéutico</option>
+                                                <option value="distribuidor">Distribuidor</option>
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-outline">Cancelar</button>
+                                    <div>
+                                        <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                                        <button type="button" class="btn btn-primary" id="btn-siguiente-paso1">Siguiente</button>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- Paso 2: Modalidades -->
+                            <div class="form-step" id="step-modalidades">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Modalidades</h3>
+                                    <p class="form-text" style="margin-bottom: 1rem;">Seleccione las modalidades que aplican para este establecimiento según su actividad.</p>
+                                    
+                                    <div class="modalities-section">
+                                        <div class="modality-list">
+                                            <div class="modality-item">
+                                                <div class="modality-title">Fabricante</div>
+                                                <button type="button" class="btn btn-outline" style="padding: 0.25rem 0.5rem;">
+                                                    <span>🗑️</span>
+                                                </button>
+                                            </div>
+                                            <div class="modality-item">
+                                                <div class="modality-title">Distribuidor</div>
+                                                <button type="button" class="btn btn-outline" style="padding: 0.25rem 0.5rem;">
+                                                    <span>🗑️</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <button type="button" class="add-modality-btn" id="btn-agregar-modalidad">
+                                            <span>➕</span> Agregar Modalidad
+                                        </button>
+                                    </div>
+                                </div>
+        
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-outline" id="btn-anterior-paso2">Anterior</button>
+                                    <div>
+                                        <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                                        <button type="button" class="btn btn-primary" id="btn-siguiente-paso2">Siguiente</button>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- Paso 3: Representante Legal -->
+                            <div class="form-step" id="step-representante">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Información del Representante Legal</h3>
+                                    
+                                    <div class="form-group">
+                                        <input type="checkbox" id="usuario-es-representante">
+                                        <label for="usuario-es-representante">Soy el representante legal</label>
+                                    </div>
+                                    
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label required" for="tipo-representante">Tipo de Representante</label>
+                                            <select class="form-control" id="tipo-representante" required>
+                                                <option value="">Seleccione...</option>
+                                                <option value="principal">Principal</option>
+                                                <option value="suplente1">Suplente Primero</option>
+                                                <option value="suplente2">Suplente Segundo</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="tipo-identificacion-rep">Tipo de Identificación</label>
+                                            <select class="form-control" id="tipo-identificacion-rep" required>
+                                                <option value="">Seleccione...</option>
+                                                <option value="cc">Cédula de Ciudadanía</option>
+                                                <option value="ce">Cédula de Extranjería</option>
+                                                <option value="pasaporte">Pasaporte</option>
+                                                <option value="pep">Permiso Especial de Permanencia</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="num-identificacion-rep">Número de Identificación</label>
+                                            <div style="display: flex; gap: 1rem;">
+                                                <input type="text" class="form-control" id="num-identificacion-rep" placeholder="Ingrese número de identificación" required>
+                                                <button type="button" class="btn btn-outline" id="btn-verificar-rep">
+                                                    <span>🔍</span> Verificar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="nombres-rep">Nombres</label>
+                                            <input type="text" class="form-control" id="nombres-rep" placeholder="Ingrese nombres" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="apellidos-rep">Apellidos</label>
+                                            <input type="text" class="form-control" id="apellidos-rep" placeholder="Ingrese apellidos" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="correo-rep">Correo Electrónico Institucional</label>
+                                            <input type="email" class="form-control" id="correo-rep" placeholder="Ingrese correo electrónico" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="telefono-rep">Teléfono</label>
+                                            <input type="tel" class="form-control" id="telefono-rep" placeholder="Ingrese número telefónico" required>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-outline" id="btn-anterior-paso3">Anterior</button>
+                                    <div>
+                                        <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                                        <button type="button" class="btn btn-primary" id="btn-siguiente-paso3">Siguiente</button>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- Paso 4: Director Técnico -->
+                            <div class="form-step" id="step-director-tecnico">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Información del Director Técnico</h3>
+                                    
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label required" for="tipo-identificacion-dt">Tipo de Identificación</label>
+                                            <select class="form-control" id="tipo-identificacion-dt" required>
+                                                <option value="">Seleccione...</option>
+                                                <option value="cc">Cédula de Ciudadanía</option>
+                                                <option value="ce">Cédula de Extranjería</option>
+                                                <option value="pasaporte">Pasaporte</option>
+                                                <option value="pep">Permiso Especial de Permanencia</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="num-identificacion-dt">Número de Identificación</label>
+                                            <div style="display: flex; gap: 1rem;">
+                                                <input type="text" class="form-control" id="num-identificacion-dt" placeholder="Ingrese número de identificación" required>
+                                                <button type="button" class="btn btn-outline" id="btn-verificar-dt">
+                                                    <span>🔍</span> Verificar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="nombres-dt">Nombres</label>
+                                            <input type="text" class="form-control" id="nombres-dt" placeholder="Ingrese nombres" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="apellidos-dt">Apellidos</label>
+                                            <input type="text" class="form-control" id="apellidos-dt" placeholder="Ingrese apellidos" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="correo-dt">Correo Electrónico Institucional</label>
+                                            <input type="email" class="form-control" id="correo-dt" placeholder="Ingrese correo electrónico" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required" for="telefono-dt">Teléfono</label>
+                                            <input type="tel" class="form-control" id="telefono-dt" placeholder="Ingrese número telefónico" required>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-outline" id="btn-anterior-paso4">Anterior</button>
+                                    <div>
+                                        <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                                        <button type="button" class="btn btn-primary" id="btn-siguiente-paso4">Siguiente</button>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- Paso 5: Documentos -->
+                            <div class="form-step" id="step-documentos">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Documentos Adjuntos</h3>
+        
+                                    <div class="attachments-container">
+                                        <div class="attachment-dropzone" id="dropzone">
+                                            <p>📎 Arrastre los archivos aquí o haga clic para seleccionarlos</p>
+                                            <input type="file" id="input-archivos" multiple style="display: none;">
+                                        </div>
+        
+                                        <div class="attachment-list" id="lista-archivos">
+                                            <!-- Lista de archivos se cargará aquí -->
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-outline" id="btn-anterior-paso5">Anterior</button>
+                                    <div>
+                                        <button type="button" class="btn btn-secondary">Guardar Borrador</button>
+                                        <button type="submit" class="btn btn-primary">📥 Finalizar Registro</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="tab-edit">
+                        <form id="form-edicion-inscripcion">
+                            <div class="form-section">
+                                <h3 class="form-section-title">Edición de Inscripción</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label required" for="edit-num-resolucion">Número de Resolución</label>
+                                        <input type="text" class="form-control" id="edit-num-resolucion" value="RES-2025-0456">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="edit-razon-social">Razón Social</label>
+                                        <input type="text" class="form-control" id="edit-razon-social" value="Farmacéutica Nacional S.A.">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="edit-tipo-entidad">Tipo de Entidad</label>
+                                        <select class="form-control" id="edit-tipo-entidad">
+                                            <option value="establecimiento" selected>Establecimiento</option>
+                                            <option value="laboratorio">Laboratorio</option>
+                                            <option value="distribuidor">Distribuidor</option>
+                                        </select>
+                                    </div>
+                                    <!-- Más campos según necesidad -->
+                                </div>
+                            </div>
+                    
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/js/menu.js"></script>
+    <script src="../assets/js/inscripciones.js"></script>
+</body>
+</html>

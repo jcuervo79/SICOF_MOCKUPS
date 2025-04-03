@@ -1,0 +1,191 @@
+<main class="main-content" id="mainContent">
+    <section id="dashboard-section" class="content-section active">
+        <div class="top-header">
+            <h2 class="page-title">Dashboard</h2>
+            <div class="header-actions">
+                <div class="search-container">
+                    <i class="fas search-icon">🔍</i>
+                    <input type="text" class="search-input" placeholder="Buscar...">
+                </div>
+                <button class="btn btn-primary">
+                    <i class="fas">⟳</i>
+                    Actualizar
+                </button>
+            </div>
+        </div>
+        
+        <!-- Tarjetas resumen -->
+        <div class="card-container">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Trámites pendientes</h3>
+                    <div class="card-icon">📝</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-value">42</div>
+                    <div class="card-description">+8% desde la semana pasada</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Mis asignaciones</h3>
+                    <div class="card-icon">👤</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-value">18</div>
+                    <div class="card-description">5 en riesgo de vencimiento</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Inscripciones activas</h3>
+                    <div class="card-icon">📋</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-value">285</div>
+                    <div class="card-description">12 próximas a vencer</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Novedades del mes</h3>
+                    <div class="card-icon">🔔</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-value">67</div>
+                    <div class="card-description">+15% respecto al mes anterior</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gráficas -->
+        <div class="chart-row">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">Volumen de trámites por tipo</h3>
+                    <div class="chart-actions">
+                        <button class="btn btn-outline btn-icon">📅</button>
+                        <button class="btn btn-outline btn-icon">⬇️</button>
+                    </div>
+                </div>
+                <div class="chart-content">
+                    <!-- Aquí iría la gráfica de volumen de trámites -->
+                    <p>Gráfico de barras con volumen de trámites por tipo</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">Distribución de carga</h3>
+                    <div class="chart-actions">
+                        <button class="btn btn-outline btn-icon">⬇️</button>
+                    </div>
+                </div>
+                <div class="chart-content">
+                    <!-- Aquí iría la gráfica de distribución de carga -->
+                    <p>Gráfico circular con distribución de carga por gestor</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabla de trámites recientes -->
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Trámites recientes</h3>
+                <button class="btn btn-outline">Ver todos</button>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>No. Radicado</th>
+                        <th>Tipo de trámite</th>
+                        <th>Entidad solicitante</th>
+                        <th>Fecha radicado</th>
+                        <th>Gestor asignado</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>RAD-2025-0042</td>
+                        <td>Inscripción</td>
+                        <td>Farmacéutica Nacional S.A.</td>
+                        <td>15/03/2025</td>
+                        <td>Juan Pérez</td>
+                        <td><span class="status-pill status-success">En proceso</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <span class="action-icon">👁️</span>
+                                <span class="action-icon">✏️</span>
+                                <span class="action-icon">📄</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>RAD-2025-0041</td>
+                        <td>Modificación</td>
+                        <td>Distribuidora Meditrópico</td>
+                        <td>14/03/2025</td>
+                        <td>Ana Silva</td>
+                        <td><span class="status-pill status-warning">Pendiente revisión</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <span class="action-icon">👁️</span>
+                                <span class="action-icon">✏️</span>
+                                <span class="action-icon">📄</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>RAD-2025-0038</td>
+                        <td>Novedad</td>
+                        <td>Servicios Médicos del Valle</td>
+                        <td>10/03/2025</td>
+                        <td>Carlos Jiménez</td>
+                        <td><span class="status-pill status-danger">Próximo a vencer</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <span class="action-icon">👁️</span>
+                                <span class="action-icon">✏️</span>
+                                <span class="action-icon">📄</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>RAD-2025-0036-10</td>
+                        <td>Inscripción</td>
+                        <td>Laboratorios Occidentales</td>
+                        <td>08/03/2025</td>
+                        <td>María López</td>
+                        <td><span class="status-pill status-info">Completado</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <span class="action-icon">👁️</span>
+                                <span class="action-icon">📄</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>RAD-2025-0035</td>
+                        <td>Cancelación</td>
+                        <td>Instituto Farmacológico</td>
+                        <td>07/03/2025</td>
+                        <td>Juan Pérez</td>
+                        <td><span class="status-pill status-info">Completado</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <span class="action-icon">👁️</span>
+                                <span class="action-icon">📄</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
